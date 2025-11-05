@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Programming — OmniHub</title>
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/dark-mode.css"><link rel="stylesheet" href="../assets/css/responsive.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+.cat-slider{position:relative;width:95%;height:300px;margin:20px auto;overflow:hidden;border-radius:12px}
+.cat-slide{position:absolute;inset:0;opacity:0;transition:opacity 1s}
+.cat-slide.active{opacity:1}
+.cat-slide img{width:100%;height:100%;object-fit:cover}
+.cat-slide .slide-content{position:absolute;left:32px;bottom:28px;color:#fff;background:rgba(0,0,0,0.45);padding:12px;border-radius:10px}
+.slider-dots{position:absolute;bottom:10px;width:100%;text-align:center}
+.slider-dots span{display:inline-block;width:9px;height:9px;margin:0 6px;background:rgba(255,255,255,0.7);border-radius:50%;cursor:pointer}
+.slider-dots span.active{background:var(--accent)}
+</style>
+</head>
+<body>
+  <aside class="sidebar"><div class="brand"><div class="logo">OH</div><div class="title">OmniHub</div></div>
+    <div class="sidebar-section"><div class="sidebar-title">Platform</div><ul class="sidebar-menu"><li><a href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li><li><a href="categories.html"><i class="fas fa-th-large"></i><span>Categories</span></a></li><li><a href="about.html"><i class="fas fa-info-circle"></i><span>About</span></a></li><li><a href="contact.html"><i class="fas fa-envelope"></i><span>Contact</span></a></li></ul></div>
+    <div class="sidebar-bottom-fixed"><div class="sidebar-section"><div class="sidebar-title">Settings</div><ul class="sidebar-menu"><li style="display:flex;align-items:center;justify-content:space-between"><a href="#" style="display:flex;align-items:center;gap:10px"><i class="fas fa-moon"></i><span>Dark Mode</span></a><label class="switch"><input type="checkbox" id="themeToggle"><span class="slider round"></span></label></li><li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li></ul></div></div>
+  </aside>
+
+  <div id="logoutOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s;z-index:9999;color:#fff;font-family:Poppins"><div style="text-align:center"><i class="fas fa-spinner fa-spin" style="font-size:2rem;margin-bottom:10px"></i><div>Logging out...</div></div></div>
+
+  <div class="main-wrap">
+    <header class="topbar" style="background:var(--card);color:var(--text)"><div class="left"><div class="hide-sm" style="color:var(--muted)">Network</div></div><img src="../assets/images/logo.svg" alt="OmniHub" width="180" height="20"><div class="right"><button class="btn">Create</button><a href="login.html"><button class="btn">Login</button></a></div></header>
+
+    <main class="page">
+      <section class="hero" style="background-image:url('../assets/images/programming-hero.jpg');background-size:cover"><div class="hero-inner"><h1>Programming Tools</h1><p style="color:var(--muted)">Code, test & deploy</p></div></section>
+
+      <div class="cat-slider" id="progSlider"><div class="cat-slide active"><img src="../assets/images/slide-prog-1.jpg" alt=""><div class="slide-content"><strong>Code Anywhere</strong><div style="font-size:.9rem">Cloud dev environments</div></div></div><div class="cat-slide"><img src="../assets/images/slide-prog-2.jpg" alt=""><div class="slide-content"><strong>Practice & Learn</strong><div style="font-size:.9rem">Challenges & tutorials</div></div></div><div class="cat-slide"><img src="../assets/images/slide-prog-3.jpg" alt=""><div class="slide-content"><strong>Collaborate</strong><div style="font-size:.9rem">Work with others on code</div></div></div><div class="slider-dots" id="progDots"></div></div>
+
+      <div class="section">
+        <div class="section-header"><h2>Developer Platforms</h2><div class="section-sub">Build & ship software</div></div>
+
+        <div class="grid">
+          <a class="card" href="https://github.com" target="_blank"><div class="media"><img src="../assets/images/github.jpg" alt=""></div><h3>GitHub</h3><p>Host & share code</p></a>
+
+          <a class="card" href="https://replit.com" target="_blank"><div class="media"><img src="../assets/images/replit.jpg" alt=""></div><h3>Replit</h3><p>Instant coding environment</p></a>
+
+          <a class="card" href="https://codepen.io" target="_blank"><div class="media"><img src="../assets/images/codepen.jpg" alt=""></div><h3>CodePen</h3><p>Frontend playground</p></a>
+
+          <a class="card" href="https://stackoverflow.com" target="_blank"><div class="media"><img src="../assets/images/stackoverflow.jpg" alt=""></div><h3>Stack Overflow</h3><p>Ask & answer dev questions</p></a>
+
+          <a class="card" href="https://leetcode.com" target="_blank"><div class="media"><img src="../assets/images/leetcode.jpg" alt=""></div><h3>LeetCode</h3><p>Practice coding problems</p></a>
+
+          <a class="card" href="https://www.hackerrank.com" target="_blank"><div class="media"><img src="../assets/images/hackerrank.jpg" alt=""></div><h3>HackerRank</h3><p>Interview practice</p></a>
+        </div>
+      </div>
+
+      <div class="footer">© 2025 OmniHub — All rights reserved</div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=> {
+      const toggle=document.getElementById('themeToggle'); const html=document.documentElement; const THEME_KEY='omnihub-theme';
+      const saved = localStorage.getItem(THEME_KEY)||'light'; html.setAttribute('data-theme',saved); if(toggle) toggle.checked = saved==='dark';
+      if(toggle) toggle.addEventListener('change', ()=>{ const theme=toggle.checked?'dark':'light'; html.setAttribute('data-theme',theme); localStorage.setItem(THEME_KEY,theme); });
+
+      (function init(sid,did,interval=3800){ const c=document.getElementById(sid); if(!c) return; const slides=c.querySelectorAll('.cat-slide'); const dots=document.getElementById(did);
+      slides.forEach((_,i)=>{ const sp=document.createElement('span'); if(i===0) sp.classList.add('active'); dots.appendChild(sp); }); const dotList=dots.querySelectorAll('span'); let idx=0; function go(i){ slides.forEach((s,n)=>s.classList.toggle('active',n===i)); dotList.forEach((d,n)=>d.classList.toggle('active',n===i)); idx=i; } dotList.forEach((d,i)=>d.addEventListener('click', ()=>go(i))); setInterval(()=>go((idx+1)%slides.length),interval); })('progSlider','progDots',4200);
+    });
+
+    const logoutBtn=document.getElementById('logoutBtn'), overlay=document.getElementById('logoutOverlay');
+    if(logoutBtn) logoutBtn.addEventListener('click', e=>{ e.preventDefault(); overlay.style.opacity='1'; overlay.style.pointerEvents='auto'; setTimeout(()=>window.location.href='login.html',1400); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Sites - OmniHub Admin</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
+</head>
+<body>
+    <header>
+        <!-- Include header component -->
+        <div id="header-placeholder"></div>
+    </header>
+    
+    <main>
+        <h1>Manage Sites</h1>
+        <form id="manage-sites-form">
+            <label for="site-name">Site Name:</label>
+            <input type="text" id="site-name" name="site-name" required>
+            
+            <label for="site-url">Site URL:</label>
+            <input type="url" id="site-url" name="site-url" required>
+            
+            <button type="submit">Add Site</button>
+        </form>
+        
+        <h2>Existing Sites</h2>
+        <ul id="site-list">
+            <!-- List of existing sites will be populated here -->
+        </ul>
+    </main>
+    
+    <footer>
+        <!-- Include footer component -->
+        <div id="footer-placeholder"></div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/manage-sites.js"></script>
+</body>
+</html>

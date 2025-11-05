@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OmniHub — Home</title>
+
+  <!-- Keep your existing stylesheets -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/dark-mode.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <style>
+    /* ---------- THEME VARIABLES ---------- */
+    :root[data-theme="light"] {
+      --bg: #f8f9fa;
+      --sidebar-bg: #ffffff;
+      --sidebar-text: #222;
+      --card: #ffffff;
+      --text: #111;
+      --muted: #555;
+      --border: #ddd;
+      --accent: #00c67a;
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0e0e0e;
+      --sidebar-bg: #1a1a1a;
+      --sidebar-text: #e8e8e8;
+      --card: #1f1f1f;
+      --text: #fff;
+      --muted: #aaa;
+      --border: #333;
+      --accent: #00c67a;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: "Poppins", sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: var(--sidebar-bg);
+      color: var(--sidebar-text);
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background-color 0.3s, color 0.3s;
+      border-right: 1px solid var(--border);
+      padding: 10px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px;
+      margin-bottom: 20px;
+    }
+    .brand .logo {
+      background: var(--accent);
+      color: #fff;
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .brand .title {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .sidebar-section {
+      margin-bottom: 15px;
+    }
+
+    .sidebar-title {
+      padding: 0 20px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sidebar-menu li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      color: var(--sidebar-text);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .sidebar-menu li a:hover,
+    .sidebar-menu li a.active {
+      background-color: var(--accent);
+      color: #fff;
+    }
+
+    .sidebar-bottom-fixed {
+      padding: 10px 0;
+    }
+
+    /* ---------- DARK MODE SWITCH ---------- */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 22px;
+    }
+    .switch input {
+      display: none;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: var(--accent);
+    }
+    input:checked + .slider:before {
+      transform: translateX(21px);
+    }
+
+    /* ---------- MAIN CONTENT ---------- */
+    .main-wrap {
+      margin-left: 250px;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .hero {
+      background: linear-gradient(to bottom right, var(--accent), var(--bg));
+      color: #fff;
+      text-align: center;
+      padding: 60px 20px;
+      border-radius: 12px;
+      margin: 20px;
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0 20px;
+      margin-bottom: 20px;
+    }
+    .filter {
+      padding: 6px 14px;
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .filter.active {
+      background-color: var(--accent);
+      color: #fff;
+    }
+
+    .section {
+      padding: 0 20px 30px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 10px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid var(--border);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #ccc;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+
+  <style>
+    /* Theme variables (kept consistent) */
+    :root[data-theme="light"] {
+      --bg: #f8f9fa;
+      --sidebar-bg: #ffffff;
+      --sidebar-text: #222;
+      --card: #ffffff;
+      --text: #111;
+      --muted: #555;
+      --border: #ddd;
+      --accent: #00c67a;
+    }
+    :root[data-theme="dark"] {
+      --bg: #0e0e0e;
+      --sidebar-bg: #1a1a1a;
+      --sidebar-text: #e8e8e8;
+      --card: #1f1f1f;
+      --text: #fff;
+      --muted: #aaa;
+      --border: #333;
+      --accent: #00c67a;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: "Poppins", sans-serif;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      transition: background-color .25s, color .25s;
+    }
+
+    /* Sidebar (kept same) */
+    .sidebar{
+      width:250px;height:100vh;position:fixed;left:0;top:0;background:var(--sidebar-bg);
+      border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:space-between;padding:12px 0;
+    }
+    .brand{display:flex;gap:12px;align-items:center;padding:8px 18px}
+    .brand .logo{background:var(--accent);color:#021;padding:8px 10px;border-radius:8px;font-weight:700}
+    .brand .title{color:var(--accent);font-weight:700}
+
+    .sidebar-section{margin-top:12px}
+    .sidebar-title{padding:8px 16px;color:var(--muted);text-transform:uppercase;font-size:12px}
+    .sidebar-menu{list-style:none;padding:0;margin:6px 0}
+    .sidebar-menu li{margin:6px 6px}
+    .sidebar-menu a{display:flex;align-items:center;gap:10px;padding:8px 16px;border-radius:8px;color:var(--sidebar-text);text-decoration:none}
+    .sidebar-menu a:hover,.sidebar-menu a.active{background:var(--accent);color:#fff}
+
+    .sidebar-bottom-fixed{padding:12px 16px}
+
+    /* Main layout */
+    .main-wrap{margin-left:250px;min-height:100vh;background:var(--bg);}
+
+    .topbar{
+      height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid var(--border);background:var(--card);position:sticky;top:0;z-index:40;
+    }
+    .btn{background:var(--accent);color:#021;border:none;padding:8px 14px;border-radius:8px;font-weight:700;cursor:pointer}
+
+    .page{padding:3px}
+
+    /* ----- Carousel styles (shared for both carousels) ----- */
+    .carousel {
+      margin: 20px;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      height: 500px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+    .slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s cubic-bezier(.22,.9,.35,1);
+    }
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.45));}
+    .slide-content{position:relative;z-index:2;color:white;text-align:center;padding:0 20px;animation: slideIn 900ms ease-out;}
+    .slide-content h2{font-size:30px;margin:0 0 8px}
+    .slide-content p{margin:0 0 14px;color:rgba(255,255,255,0.92)}
+    .slide-content .cta{background:var(--accent);color:#021;padding:10px 18px;border-radius:10px;text-decoration:none;font-weight:700}
+
+    @keyframes slideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+    .carousel-nav{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5}
+    .dot{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,0.7);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+    .dot.active{background:var(--accent)}
+
+    /* Explore grid/cards (kept close to your style) */
+    .section{margin:0 20px 36px}
+    .section-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px}
+    .section-header h2{margin:0}
+    .section-sub{color:var(--muted);font-size:13px}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .card{background:var(--card);border-radius:12px;padding:10px;border:1px solid var(--border);transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column;gap:10px;min-height:210px;align-items:center;text-align:center}
+    .card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,0.06)}
+    .card .media{width:100%;height:130px;border-radius:10px;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center}
+    .card img{width:100%;height:100%;object-fit:cover}
+
+    /* Logout overlay */
+    #logoutOverlay{
+      position:fixed;inset:0;background:rgba(0,0,0,0.88);display:flex;align-items:center;justify-content:center;color:#fff;font-family:Poppins,sans-serif;
+      opacity:0;pointer-events:none;transition:opacity .4s;z-index:9999;
+    }
+    #logoutOverlay .wrap{display:flex;flex-direction:column;align-items:center;gap:12px}
+    #logoutOverlay .wrap .spinner{font-size:34px;animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Responsive tweaks */
+    @media(max-width:900px){
+      .sidebar{width:72px}
+      .main-wrap{margin-left:72px}
+      .carousel{height:220px}
+      .slide-content h2{font-size:20px}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-labelledby="sidebar">
+    <div>
+      <div class="brand">
+        <div class="logo">OH</div>
+        <div class="title">OmniHub</div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Platform</div>
+        <ul class="sidebar-menu">
+          <li><a class="active" href="#"><i class="fas fa-home"></i><span>Home</span></a></li>
+          <li><a href="categories.html"><i class="fas fa-th-large"></i><span>Categories</span></a></li>
+          <li><a href="about.html"><i class="fas fa-info-circle"></i><span>About</span></a></li>
+          <li><a href="contact.html"><i class="fas fa-envelope"></i><span>Contact</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Tools</div>
+        <ul class="sidebar-menu">
+          <li><a href="#"><i class="fas fa-tools"></i><span>All Tools</span></a></li>
+          <li><a href="#"><i class="fas fa-plus-circle"></i><span>New Apps</span></a></li>
+          <li><a href="#"><i class="fas fa-fire"></i><span>Trending</span></a></li>
+          <li><a href="#"><i class="fas fa-star"></i><span>Recommended</span></a></li>
+          <li><a href="#"><i class="fas fa-robot"></i><span>AI Assistant</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Resources</div>
+        <ul class="sidebar-menu">
+          <li><a href="#"><i class="fas fa-book"></i><span>Documentation</span></a></li>
+          <li><a href="#"><i class="fas fa-palette"></i><span>Brand Kit</span></a></li>
+          <li><a href="#"><i class="fas fa-question-circle"></i><span>FAQ</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Socials</div>
+        <ul class="sidebar-menu">
+          <li><a href="https://www.instagram.com/mr_pravarakya_001/"><i class="fab fa-instagram"></i><span>Instagram</span></a></li>
+          <li><a href="https://www.facebook.com/share/1BmWBZmDok/"><i class="fab fa-facebook"></i><span>Facebook</span></a></li>
+          <li><a href="https://github.com/Prava143"><i class="fab fa-x-twitter"></i><span>X</span></a></li>
+          <li><a href="https://discord.gg/7nmyWkME"><i class="fab fa-discord"></i><span>Discord</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- bottom -->
+    <div class="sidebar-bottom-fixed">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Settings</div>
+        <ul class="sidebar-menu">
+          <li style="display:flex;align-items:center;justify-content:space-between;">
+            <a href="#" style="display:flex;align-items:center;gap:10px;"><i class="fas fa-moon"></i><span>Dark Mode</span></a>
+            <label class="switch"><input type="checkbox" id="themeToggle"><span class="slider round"></span></label>
+          </li>
+          <li>
+            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Logout overlay (shows "Welcome to OmniHub" before redirect) -->
+  <div id="logoutOverlay">
+    <div class="wrap">
+      <div class="spinner"><i class="fas fa-spinner"></i></div>
+      <div style="font-size:20px;font-weight:700">Welcome to OmniHub</div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main-wrap">
+    <header class="topbar">
+      <div style="color:var(--muted)">Network</div>
+      <img src="../assets/images/logo.svg" alt="OmniHub logo" width="160" height="20">
+      <div>
+        <button class="btn" style="padding: 8px 24px;">Create</button>
+        <a href="login.html"><button class="btn" style="margin-left: 12px;">Login</button></a>
+
+      </div>
+    </header>
+
+    <main class="page">
+
+      <!-- TOP CAROUSEL (above hero) -->
+      <div class="carousel" aria-hidden="false">
+        <div class="slides" id="topSlides">
+          <div class="slide" style="background-image:url('../assets/images/slide1.jpg')">
+            <div class="slide-content">
+              <h2>Entertainment Highlights</h2>
+              <p>New shows, trending movies and more — all in one place.</p>
+              <a class="cta" href="categories.html#entertainment">Explore Now</a>
+            </div>
+          </div>
+
+          <div class="slide" style="background-image:url('../assets/images/slide2.jpg')">
+            <div class="slide-content">
+              <h2>Shop Best Deals</h2>
+              <p>Top discounts and fresh arrivals — curated for you.</p>
+              <a class="cta" href="categories.html#shopping">Shop Now</a>
+            </div>
+          </div>
+
+          <div class="slide" style="background-image:url('../assets/images/slide3.jpg')">
+            <div class="slide-content">
+              <h2>AI Tools & Assistants</h2>
+              <p>Try modern AI tools to speed up your work and creativity.</p>
+              <a class="cta" href="categories.html#ai-tools">Try AI Tools</a>
+            </div>
+          </div>
+
+          <div class="slide" style="background-image:url('../assets/images/slide4.jpg')">
+            <div class="slide-content">
+              <h2>Music Everywhere</h2>
+              <p>Discover playlists, podcasts and more.</p>
+              <a class="cta" href="categories.html#music">Listen Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-nav" id="topNav"></div>
+      </div>
+
+      <!-- HERO (keeps your original hero) -->
+      <section class="hero" style="background-image:url('../assets/images/banner.jpg'); background-size:cover; background-position:center;">
+        <div class="hero-inner" style="text-align:center; padding:40px 24px;">
+          <h1 style="margin:0;font-size:28px">Welcome to OmniHub – Explore Everything From One Place</h1>
+        </div>
+      </section>
+
+      <!-- FILTER ROW (keeps existing filters) -->
+      <div class="filter-row" role="toolbar" aria-label="filters" style="margin:0 20px 18px;">
+        <div class="filter active">All Apps</div>
+        <div class="filter">Entertainment</div>
+        <div class="filter">Shopping</div>
+        <div class="filter">AI Tools</div>
+        <div class="filter">Games</div>
+        <div class="filter">Study</div>
+        <div class="filter">Music</div>
+        <div class="filter">Programming</div>
+        <div class="filter">News</div>
+        <div class="filter">More…</div>
+      </div>
+
+      <!-- APPS GRID (40 apps total). We'll insert the second carousel after the 25th card -->
+      <section class="section">
+        <div class="section-header">
+          <h2>Explore All Apps</h2>
+          <div class="section-sub">Discover apps across all categories</div>
+        </div>
+
+        <div class="grid" id="appsGrid">
+
+          <!-- 1  Netflix -->
+          <a href="entertainment.html#netflix" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/netflix.jpg" alt="Netflix"></div>
+            <h3>Netflix</h3>
+            <p>Stream movies & TV shows</p>
+          </a>
+
+          <!-- 2 YouTube -->
+          <a href="entertainment.html#youtube" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/youtube.jpg" alt="YouTube"></div>
+            <h3>YouTube</h3>
+            <p>Watch and share videos</p>
+          </a>
+
+          <!-- 3 Hotstar -->
+          <a href="entertainment.html#hotstar" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/hotstar.jpg" alt="Hotstar"></div>
+            <h3>Disney+ Hotstar</h3>
+            <p>Movies & live sports</p>
+          </a>
+
+          <!-- 4 SonyLIV -->
+          <a href="entertainment.html#sonyliv" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/sonyliv.jpg" alt="SonyLIV"></div>
+            <h3>SonyLIV</h3>
+            <p>Premium entertainment</p>
+          </a>
+
+          <!-- 5 ZEE5 -->
+          <a href="entertainment.html#zee5" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/zee5.jpg" alt="ZEE5"></div>
+            <h3>ZEE5</h3>
+            <p>Movies, series & news</p>
+          </a>
+
+          <!-- 6 Crunchyroll (extra entertainment) -->
+          <a href="entertainment.html#crunchyroll" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/crunchyroll.jpg" alt="Crunchyroll"></div>
+            <h3>Crunchyroll</h3>
+            <p>Anime & Asian drama</p>
+          </a>
+
+          <!-- 7 Amazon -->
+          <a href="shopping.html#amazon" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/amazon.jpg" alt="Amazon"></div>
+            <h3>Amazon</h3>
+            <p>Shop everything online</p>
+          </a>
+
+          <!-- 8 Flipkart -->
+          <a href="shopping.html#flipkart" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/flipkart.jpg" alt="Flipkart"></div>
+            <h3>Flipkart</h3>
+            <p>India’s favorite store</p>
+          </a>
+
+          <!-- 9 Meesho -->
+          <a href="shopping.html#meesho" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/meesho.jpg" alt="Meesho"></div>
+            <h3>Meesho</h3>
+            <p>Resell & shop affordably</p>
+          </a>
+
+          <!-- 10 Myntra -->
+          <a href="shopping.html#myntra" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/myntra.jpg" alt="Myntra"></div>
+            <h3>Myntra</h3>
+            <p>Fashion & lifestyle</p>
+          </a>
+
+          <!-- 11 AJIO -->
+          <a href="shopping.html#ajio" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/ajio.jpg" alt="AJIO"></div>
+            <h3>AJIO</h3>
+            <p>Trendy clothes & accessories</p>
+          </a>
+
+          <!-- 12 Etsy (extra shopping) -->
+          <a href="shopping.html#etsy" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/etsy.jpg" alt="Etsy"></div>
+            <h3>Etsy</h3>
+            <p>Handmade & unique items</p>
+          </a>
+
+          <!-- 13 Epic Games -->
+          <a href="games.html#epic" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/epic.jpg" alt="Epic Games"></div>
+            <h3>Epic Games</h3>
+            <p>Play & discover new games</p>
+          </a>
+
+          <!-- 14 Steam -->
+          <a href="games.html#steam" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/steam.jpg" alt="Steam"></div>
+            <h3>Steam</h3>
+            <p>Buy & play PC games</p>
+          </a>
+
+          <!-- 15 Google Play Games -->
+          <a href="games.html#playstore" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/playstore.jpg" alt="Google Play"></div>
+            <h3>Google Play Games</h3>
+            <p>Mobile games hub</p>
+          </a>
+
+          <!-- 16 Roblox -->
+          <a href="games.html#roblox" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/roblox.jpg" alt="Roblox"></div>
+            <h3>Roblox</h3>
+            <p>Play & create worlds</p>
+          </a>
+
+          <!-- 17 Miniclip -->
+          <a href="games.html#miniclip" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/miniclip.jpg" alt="Miniclip"></div>
+            <h3>Miniclip</h3>
+            <p>Classic online games</p>
+          </a>
+
+          <!-- 18 GOG (extra game) -->
+          <a href="games.html#gog" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/gog.jpg" alt="GOG"></div>
+            <h3>GOG</h3>
+            <p>DRM-free PC games</p>
+          </a>
+
+          <!-- 19 ChatGPT -->
+          <a href="ai-tools.html#chatgpt" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/chatgpt.jpg" alt="ChatGPT"></div>
+            <h3>ChatGPT</h3>
+            <p>Your personal AI assistant</p>
+          </a>
+
+          <!-- 20 Google Gemini -->
+          <a href="ai-tools.html#gemini" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/gemini.jpg" alt="Gemini"></div>
+            <h3>Google Gemini</h3>
+            <p>AI for creative & coding tasks</p>
+          </a>
+
+          <!-- 21 Microsoft Copilot -->
+          <a href="ai-tools.html#copilot" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/copilot.jpg" alt="Copilot"></div>
+            <h3>Microsoft Copilot</h3>
+            <p>AI inside Microsoft tools</p>
+          </a>
+
+          <!-- 22 Claude AI -->
+          <a href="ai-tools.html#claude" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/claude.jpg" alt="Claude"></div>
+            <h3>Claude AI</h3>
+            <p>Next-gen conversational AI</p>
+          </a>
+
+          <!-- 23 Perplexity -->
+          <a href="ai-tools.html#perplexity" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/perplexity.jpg" alt="Perplexity"></div>
+            <h3>Perplexity</h3>
+            <p>Smart AI search engine</p>
+          </a>
+
+          <!-- 24 Khan Academy -->
+          <a href="study.html#khan" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/khanacademy.jpg" alt="Khan Academy"></div>
+            <h3>Khan Academy</h3>
+            <p>Learn anything for free</p>
+          </a>
+
+          <!-- 25 Coursera -->
+          <a href="study.html#coursera" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/coursera.jpg" alt="Coursera"></div>
+            <h3>Coursera</h3>
+            <p>University-level courses</p>
+          </a>
+
+          <!-- SECOND CAROUSEL INSERTED after 25th card -->
+        </div>
+
+        <!-- Second carousel after first 25 items -->
+        <div class="carousel" style="margin-top:22px;">
+          <div class="slides" id="midSlides">
+            <div class="slide" style="background-image:url('../assets/images/slide5.jpg')">
+              <div class="slide-content">
+                <h2>Top Picks This Week</h2>
+                <p>Handpicked apps and tools trending now.</p>
+                <a class="cta" href="categories.html">Explore Picks</a>
+              </div>
+            </div>
+            <div class="slide" style="background-image:url('../assets/images/slide6.jpg')">
+              <div class="slide-content">
+                <h2>Productivity Boosters</h2>
+                <p>Apps to help you focus and get more done.</p>
+                <a class="cta" href="categories.html#productivity">Try Now</a>
+              </div>
+            </div>
+            <div class="slide" style="background-image:url('../assets/images/slide7.jpg')">
+              <div class="slide-content">
+                <h2>Discover New Tools</h2>
+                <p>Fresh apps added to OmniHub regularly.</p>
+                <a class="cta" href="categories.html#new">See New</a>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-nav" id="midNav"></div>
+        </div>
+
+        <!-- Continue remaining apps (26..40) -->
+        <div class="grid" style="margin-top:22px; gap:18px;">
+
+          <!-- 26 Udemy -->
+          <a href="study.html#udemy" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/udemy.jpg" alt="Udemy"></div>
+            <h3>Udemy</h3>
+            <p>Affordable skill-based courses</p>
+          </a>
+
+          <!-- 27 edX -->
+          <a href="study.html#edx" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/edx.jpg" alt="edX"></div>
+            <h3>edX</h3>
+            <p>Top university programs online</p>
+          </a>
+
+          <!-- 28 Brainly -->
+          <a href="study.html#brainly" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/brainly.jpg" alt="Brainly"></div>
+            <h3>Brainly</h3>
+            <p>Homework help & community</p>
+          </a>
+
+          <!-- 29 GitHub -->
+          <a href="programming.html#github" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/github.jpg" alt="GitHub"></div>
+            <h3>GitHub</h3>
+            <p>Host & share your code</p>
+          </a>
+
+          <!-- 30 Replit -->
+          <a href="programming.html#replit" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/replit.jpg" alt="Replit"></div>
+            <h3>Replit</h3>
+            <p>Collaborative online coding</p>
+          </a>
+
+          <!-- 31 CodePen -->
+          <a href="programming.html#codepen" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/codepen.jpg" alt="CodePen"></div>
+            <h3>CodePen</h3>
+            <p>Frontend playground</p>
+          </a>
+
+          <!-- 32 Stack Overflow -->
+          <a href="programming.html#stackoverflow" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/stackoverflow.jpg" alt="StackOverflow"></div>
+            <h3>Stack Overflow</h3>
+            <p>Ask & answer coding questions</p>
+          </a>
+
+          <!-- 33 LeetCode -->
+          <a href="programming.html#leetcode" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/leetcode.jpg" alt="LeetCode"></div>
+            <h3>LeetCode</h3>
+            <p>Coding challenges & interview prep</p>
+          </a>
+
+          <!-- 34 HackerRank (extra programming) -->
+          <a href="programming.html#hackerrank" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/hackerrank.jpg" alt="HackerRank"></div>
+            <h3>HackerRank</h3>
+            <p>Practice coding tasks</p>
+          </a>
+
+          <!-- 35 Spotify -->
+          <a href="music.html#spotify" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/spotify.jpg" alt="Spotify"></div>
+            <h3>Spotify</h3>
+            <p>Music & podcasts</p>
+          </a>
+
+          <!-- 36 YouTube Music -->
+          <a href="music.html#ytmusic" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/ytmusic.jpg" alt="YT Music"></div>
+            <h3>YouTube Music</h3>
+            <p>Music streaming</p>
+          </a>
+
+          <!-- 37 Gaana -->
+          <a href="music.html#gaana" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/gaana.jpg" alt="Gaana"></div>
+            <h3>Gaana</h3>
+            <p>Indian & regional music</p>
+          </a>
+
+          <!-- 38 Wynk -->
+          <a href="music.html#wynk" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/wynk.jpg" alt="Wynk"></div>
+            <h3>Wynk Music</h3>
+            <p>Stream & download songs</p>
+          </a>
+
+          <!-- 39 JioSaavn -->
+          <a href="music.html#saavn" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/saavn.jpg" alt="JioSaavn"></div>
+            <h3>JioSaavn</h3>
+            <p>Listen to your favorite artists</p>
+          </a>
+
+          <!-- 40 Skillshare (extra study) -->
+          <a href="study.html#skillshare" target="_blank" class="card">
+            <div class="media"><img src="../assets/images/skillshare.jpg" alt="Skillshare"></div>
+            <h3>Skillshare</h3>
+            <p>Creative & practical classes</p>
+          </a>
+
+        </div> <!-- end remaining apps grid -->
+      </section>
+
+      <div class="footer">© 2025 OmniHub — All rights reserved</div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Theme toggle + persistence
+    (function(){
+      const toggle = document.getElementById('themeToggle');
+      const html = document.documentElement;
+      const KEY = 'omnihub-theme';
+      const saved = localStorage.getItem(KEY) || 'light';
+      html.setAttribute('data-theme', saved);
+      if (toggle) toggle.checked = saved === 'dark';
+      toggle?.addEventListener('change', () => {
+        const theme = toggle.checked ? 'dark' : 'light';
+        html.setAttribute('data-theme', theme);
+        localStorage.setItem(KEY, theme);
+      });
+    })();
+
+    // Logout overlay animation & redirect
+    (function(){
+      const logoutBtn = document.getElementById('logoutBtn');
+      const overlay = document.getElementById('logoutOverlay');
+      logoutBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        overlay.style.opacity = '1';
+        overlay.style.pointerEvents = 'auto';
+        // Delay then go to login page
+        setTimeout(()=>{ window.location.href = 'login.html'; }, 1600);
+      });
+    })();
+
+    // Generic carousel helper (used for topSlides and midSlides)
+    function initCarousel(slidesId, navId, interval=4500) {
+      const slidesWrap = document.getElementById(slidesId);
+      const nav = document.getElementById(navId);
+      if (!slidesWrap) return;
+      const total = slidesWrap.children.length;
+      let idx = 0;
+      // create dots
+      for (let i=0;i<total;i++){
+        const d = document.createElement('div');
+        d.className = 'dot' + (i===0? ' active':'');
+        d.addEventListener('click', ()=>{ go(i); });
+        nav.appendChild(d);
+      }
+      function go(i){
+        idx = i;
+        slidesWrap.style.transform = `translateX(-${i * 100}%)`;
+        nav.querySelectorAll('.dot').forEach((dot,n)=>dot.classList.toggle('active', n===i));
+      }
+      // auto slide
+      setInterval(()=>{ idx = (idx+1) % total; go(idx); }, interval);
+    }
+
+    // init carousels
+    initCarousel('topSlides','topNav',4000);
+    initCarousel('midSlides','midNav',4300);
+
+    // Optional: enhance app card clicks (open in new tab already via target="_blank")
+  </script>
+</body>
+</html>

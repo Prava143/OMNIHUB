@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - OmniHub</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <header>
+        <!-- Include header component -->
+        <div id="header-placeholder"></div>
+    </header>
+    
+    <aside>
+        <!-- Include sidebar component -->
+        <div id="sidebar-placeholder"></div>
+    </aside>
+
+    <main>
+        <h1>Admin Dashboard</h1>
+        <section>
+            <h2>Manage Websites</h2>
+            <button onclick="location.href='manage-sites.html'">Add/Edit Websites</button>
+        </section>
+        <section>
+            <h2>Site Statistics</h2>
+            <p>View analytics and performance metrics here.</p>
+        </section>
+        <section>
+            <h2>User Management</h2>
+            <p>Manage user accounts and permissions.</p>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Include footer component -->
+        <div id="footer-placeholder"></div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/search.js"></script>
+    <script src="../assets/js/theme-switcher.js"></script>
+    <script src="../assets/js/ai-recommendations.js"></script>
+    <script>
+        // Load components dynamically
+        document.getElementById('header-placeholder').innerHTML = '<!-- Header HTML goes here -->';
+        document.getElementById('sidebar-placeholder').innerHTML = '<!-- Sidebar HTML goes here -->';
+        document.getElementById('footer-placeholder').innerHTML = '<!-- Footer HTML goes here -->';
+    </script>
+</body>
+</html>

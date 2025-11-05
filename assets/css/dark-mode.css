@@ -1,0 +1,87 @@
+/* ===========================================================
+   THEME VARIABLES
+   =========================================================== */
+
+/* Light mode (default) */
+:root {
+  --bg: #F7F8FA;
+  --card: #FFFFFF;
+  --text: #222222;
+  --muted: rgba(34, 34, 34, 0.6);
+  --accent: #00C896;
+  --accent-dark: #00886C;
+  --sidebar-bg: #FFFFFF;
+  --topbar-bg: #FFFFFF;
+  --border: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode (applied via JS) */
+:root[data-theme="dark"] {
+  --bg: #121212;
+  --card: #1E1E1E;
+  --text: #EAEAEA;
+  --muted: rgba(255, 255, 255, 0.7);
+  --accent: #00FF9C;
+  --accent-dark: #00C896;
+  --sidebar-bg: #1E1E1E;
+  --topbar-bg: #1E1E1E;
+  --border: rgba(255, 255, 255, 0.1);
+}
+
+/* ===========================================================
+   BASE STYLES
+   =========================================================== */
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar {
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+}
+
+.topbar {
+  background-color: var(--topbar-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+}
+
+a {
+  color: var(--accent-dark);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+button {
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: var(--accent-dark);
+}
+
+input, textarea {
+  background-color: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.footer {
+  background-color: var(--sidebar-bg);
+  border-top: 1px solid var(--border);
+}

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Entertainment — OmniHub</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/dark-mode.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <style>
+    /* small slider styles (keeps visual consistent with index) */
+    .cat-slider{position:relative; width:95%; height:300px; margin:20px auto; overflow:hidden; border-radius:12px}
+    .cat-slide{position:absolute; inset:0; opacity:0; transition:opacity 1s ease}
+    .cat-slide.active{opacity:1}
+    .cat-slide img{width:100%;height:100%;object-fit:cover}
+    .cat-slide .slide-content{position:absolute;left:32px;bottom:28px;color:#fff;background:rgba(0,0,0,0.4);padding:12px 16px;border-radius:10px}
+    .slider-dots{position:absolute;bottom:10px;width:100%;text-align:center}
+    .slider-dots span{display:inline-block;width:9px;height:9px;margin:0 6px;background:rgba(255,255,255,0.7);border-radius:50%;cursor:pointer}
+    .slider-dots span.active{background:var(--accent)}
+  </style>
+</head>
+<body>
+  <!-- Sidebar (same as index but active on Entertainment) -->
+  <aside class="sidebar" aria-labelledby="sidebar">
+    <div class="brand"><div class="logo">OH</div><div class="title">OmniHub</div></div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Platform</div>
+      <ul class="sidebar-menu">
+        <li><a href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+        <li><a href="categories.html"><i class="fas fa-th-large"></i><span>Categories</span></a></li>
+        <li><a href="about.html"><i class="fas fa-info-circle"></i><span>About</span></a></li>
+        <li><a class="active" href="contact.html"><i class="fas fa-envelope"></i><span>Contact</span></a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Tools</div>
+      <ul class="sidebar-menu">
+        <li><a href="#"><i class="fas fa-tools"></i><span>All Tools</span></a></li>
+        <li><a href="#"><i class="fas fa-plus-circle"></i><span>New Apps</span></a></li>
+        <li><a href="#"><i class="fas fa-fire"></i><span>Trending</span></a></li>
+        <li><a href="#"><i class="fas fa-star"></i><span>Recommended</span></a></li>
+        <li><a href="#"><i class="fas fa-robot"></i><span>AI Assistant</span></a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Resources</div>
+      <ul class="sidebar-menu">
+        <li><a href="#"><i class="fas fa-book"></i><span>Documentation</span></a></li>
+        <li><a href="#"><i class="fas fa-palette"></i><span>Brand Kit</span></a></li>
+        <li><a href="#"><i class="fas fa-question-circle"></i><span>FAQ</span></a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Socials</div>
+      <ul class="sidebar-menu">
+        <li><a href="#"><i class="fab fa-instagram"></i><span>Instagram</span></a></li>
+        <li><a href="#"><i class="fab fa-facebook"></i><span>Facebook</span></a></li>
+        <li><a href="#"><i class="fab fa-x-twitter"></i><span>X</span></a></li>
+        <li><a href="#"><i class="fab fa-discord"></i><span>Discord</span></a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-bottom-fixed">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Settings</div>
+        <ul class="sidebar-menu">
+          <li style="display:flex;align-items:center;justify-content:space-between">
+            <a href="#" style="display:flex;align-items:center;gap:10px"><i class="fas fa-moon"></i><span>Dark Mode</span></a>
+            <label class="switch"><input type="checkbox" id="themeToggle"><span class="slider round"></span></label>
+          </li>
+          <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Logout overlay -->
+  <div id="logoutOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s;z-index:9999;color:#fff;font-family:Poppins">
+    <div style="text-align:center">
+      <i class="fas fa-spinner fa-spin" style="font-size:2rem;margin-bottom:10px"></i>
+      <div>Logging out...</div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main-wrap">
+    <header class="topbar" style="background:var(--card);color:var(--text)">
+      <div class="left"><div class="hide-sm" style="color:var(--muted)">Network</div></div>
+      <img src="../assets/images/logo.svg" alt="OmniHub" width="180" height="20">
+      <div class="right"><button class="btn">Create</button><a href="login.html"><button class="btn">Login</button></a></div>
+    </header>
+
+    <main class="page">
+      <section class="hero" style="background-image:url('../assets/images/entertainment-hero.jpg');background-size:cover">
+        <div class="hero-inner"><h1>Explore Entertainment Apps</h1><p style="color:var(--muted)">Movies, streams & video platforms</p></div>
+      </section>
+
+      <!-- small slider -->
+      <div class="cat-slider" id="entSlider">
+        <div class="cat-slide active">
+          <img src="../assets/images/slide-ent-1.jpg" alt="">
+          <div class="slide-content"><strong>Top Picks Today</strong><div style="font-size:.9rem">Binge-worthy shows and trending movies</div></div>
+        </div>
+        <div class="cat-slide"><img src="../assets/images/slide-ent-2.jpg" alt=""><div class="slide-content"><strong>Live Sports</strong><div style="font-size:.9rem">Catch live matches & events</div></div></div>
+        <div class="cat-slide"><img src="../assets/images/slide-ent-3.jpg" alt=""><div class="slide-content"><strong>Curated Playlists</strong><div style="font-size:.9rem">Watchlists picked for you</div></div></div>
+        <div class="slider-dots" id="entDots"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><h2>Entertainment</h2><div class="section-sub">Stream, watch, & enjoy</div></div>
+
+        <div class="grid">
+          <a class="card" href="https://www.netflix.com" target="_blank"><div class="media"><img src="../assets/images/netflix.jpg" alt=""></div><h3>Netflix</h3><p>Stream movies & TV shows</p></a>
+
+          <a class="card" href="https://www.youtube.com" target="_blank"><div class="media"><img src="../assets/images/youtube.jpg" alt=""></div><h3>YouTube</h3><p>Watch and share videos</p></a>
+
+          <a class="card" href="https://www.hotstar.com" target="_blank"><div class="media"><img src="../assets/images/hotstar.jpg" alt=""></div><h3>Disney+ Hotstar</h3><p>Movies & live sports</p></a>
+
+          <a class="card" href="https://www.sonyliv.com" target="_blank"><div class="media"><img src="../assets/images/sonyliv.jpg" alt=""></div><h3>SonyLIV</h3><p>Shows & originals</p></a>
+
+          <a class="card" href="https://www.zee5.com" target="_blank"><div class="media"><img src="../assets/images/zee5.jpg" alt=""></div><h3>ZEE5</h3><p>Regional & international content</p></a>
+
+          <a class="card" href="https://www.primevideo.com" target="_blank"><div class="media"><img src="../assets/images/primevideo.jpg" alt=""></div><h3>Prime Video</h3><p>Amazon's streaming hub</p></a>
+        </div>
+      </div>
+
+      <div class="footer">© 2025 OmniHub — All rights reserved</div>
+    </main>
+  </div>
+
+  <script>
+    // Theme toggle load/save (same logic as index)
+    document.addEventListener('DOMContentLoaded', ()=> {
+      const toggle = document.getElementById('themeToggle');
+      const html = document.documentElement;
+      const THEME_KEY = 'omnihub-theme';
+      const saved = localStorage.getItem(THEME_KEY)||'light';
+      html.setAttribute('data-theme', saved);
+      if(toggle) toggle.checked = saved==='dark';
+      if(toggle) toggle.addEventListener('change', ()=> {
+        const theme = toggle.checked?'dark':'light';
+        html.setAttribute('data-theme', theme);
+        localStorage.setItem(THEME_KEY, theme);
+      });
+
+      // simple slider init
+      (function initSlider(sliderId, dotsId, interval=3500){
+        const container = document.getElementById(sliderId);
+        if(!container) return;
+        const slides = container.querySelectorAll('.cat-slide');
+        const dotsWrap = document.getElementById(dotsId);
+        slides.forEach((_,i)=>{ const s=document.createElement('span'); if(i===0) s.classList.add('active'); dotsWrap.appendChild(s); });
+        const dots = dotsWrap.querySelectorAll('span');
+        let idx = 0;
+        function go(i){ slides.forEach((s,n)=>s.classList.toggle('active', n===i)); dots.forEach((d,n)=>d.classList.toggle('active', n===i)); idx=i;}
+        dots.forEach((d,i)=>d.addEventListener('click', ()=> go(i)));
+        setInterval(()=> go((idx+1)%slides.length), interval);
+      })('entSlider','entDots',4000);
+    });
+
+    // Logout animation + redirect
+    const logoutBtn = document.getElementById('logoutBtn');
+    const overlay = document.getElementById('logoutOverlay');
+    if(logoutBtn){
+      logoutBtn.addEventListener('click', (e)=> {
+        e.preventDefault();
+        overlay.style.opacity = '1'; overlay.style.pointerEvents='auto';
+        setTimeout(()=> window.location.href = 'login.html', 1400);
+      });
+    }
+  </script>
+</body>
+</html>

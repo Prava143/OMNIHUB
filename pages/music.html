@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Music — OmniHub</title>
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/dark-mode.css"><link rel="stylesheet" href="../assets/css/responsive.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+.cat-slider{position:relative;width:95%;height:300px;margin:20px auto;border-radius:12px;overflow:hidden}
+.cat-slide{position:absolute;inset:0;opacity:0;transition:opacity 1s}
+.cat-slide.active{opacity:1}
+.cat-slide img{width:100%;height:100%;object-fit:cover}
+.cat-slide .slide-content{position:absolute;left:32px;bottom:28px;color:#fff;background:rgba(0,0,0,0.45);padding:12px;border-radius:10px}
+.slider-dots{position:absolute;bottom:10px;width:100%;text-align:center}
+.slider-dots span{display:inline-block;width:9px;height:9px;margin:0 6px;background:rgba(255,255,255,0.7);border-radius:50%;cursor:pointer}
+.slider-dots span.active{background:var(--accent)}
+</style>
+</head>
+<body>
+  <aside class="sidebar"><div class="brand"><div class="logo">OH</div><div class="title">OmniHub</div></div>
+    <div class="sidebar-section"><div class="sidebar-title">Platform</div><ul class="sidebar-menu"><li><a href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li><li><a href="categories.html"><i class="fas fa-th-large"></i><span>Categories</span></a></li><li><a href="about.html"><i class="fas fa-info-circle"></i><span>About</span></a></li><li><a href="contact.html"><i class="fas fa-envelope"></i><span>Contact</span></a></li></ul></div>
+    <div class="sidebar-bottom-fixed"><div class="sidebar-section"><div class="sidebar-title">Settings</div><ul class="sidebar-menu"><li style="display:flex;align-items:center;justify-content:space-between"><a href="#" style="display:flex;align-items:center;gap:10px"><i class="fas fa-moon"></i><span>Dark Mode</span></a><label class="switch"><input type="checkbox" id="themeToggle"><span class="slider round"></span></label></li><li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li></ul></div></div>
+  </aside>
+
+  <div id="logoutOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s;z-index:9999;color:#fff;font-family:Poppins"><div style="text-align:center"><i class="fas fa-spinner fa-spin" style="font-size:2rem;margin-bottom:10px"></i><div>Logging out...</div></div></div>
+
+  <div class="main-wrap">
+    <header class="topbar" style="background:var(--card);color:var(--text)"><div class="left"><div class="hide-sm" style="color:var(--muted)">Network</div></div><img src="../assets/images/logo.svg" alt="OmniHub" width="180" height="20"><div class="right"><button class="btn">Create</button><a href="login.html"><button class="btn">Login</button></a></div></header>
+
+    <main class="page">
+      <section class="hero" style="background-image:url('../assets/images/music-hero.jpg');background-size:cover"><div class="hero-inner"><h1>Music Apps</h1><p style="color:var(--muted)">Streaming & playlists</p></div></section>
+
+      <div class="cat-slider" id="musicSlider"><div class="cat-slide active"><img src="../assets/images/slide-music-1.jpg" alt=""><div class="slide-content"><strong>Top Playlists</strong><div style="font-size:.9rem">Editor's picks & trending</div></div></div><div class="cat-slide"><img src="../assets/images/slide-music-2.jpg" alt=""><div class="slide-content"><strong>New Releases</strong><div style="font-size:.9rem">Latest albums & singles</div></div></div><div class="cat-slide"><img src="../assets/images/slide-music-3.jpg" alt=""><div class="slide-content"><strong>Live Sessions</strong><div style="font-size:.9rem">Concerts & sessions</div></div></div><div class="slider-dots" id="musicDots"></div></div>
+
+      <div class="section">
+        <div class="section-header"><h2>Music</h2><div class="section-sub">Stream your favorite tunes</div></div>
+
+        <div class="grid">
+          <a class="card" href="https://open.spotify.com" target="_blank"><div class="media"><img src="../assets/images/spotify.jpg" alt=""></div><h3>Spotify</h3><p>Listen to music & podcasts</p></a>
+
+          <a class="card" href="https://music.youtube.com" target="_blank"><div class="media"><img src="../assets/images/ytmusic.jpg" alt=""></div><h3>YouTube Music</h3><p>Music from YouTube</p></a>
+
+          <a class="card" href="https://gaana.com" target="_blank"><div class="media"><img src="../assets/images/gaana.jpg" alt=""></div><h3>Gaana</h3><p>Regional & global music</p></a>
+
+          <a class="card" href="https://wynk.in/music" target="_blank"><div class="media"><img src="../assets/images/wynk.jpg" alt=""></div><h3>Wynk Music</h3><p>Stream & download</p></a>
+
+          <a class="card" href="https://www.jiosaavn.com" target="_blank"><div class="media"><img src="../assets/images/saavn.jpg" alt=""></div><h3>JioSaavn</h3><p>Music & radio</p></a>
+
+          <a class="card" href="https://soundcloud.com" target="_blank"><div class="media"><img src="../assets/images/soundcloud.jpg" alt=""></div><h3>SoundCloud</h3><p>Indie & emerging artists</p></a>
+        </div>
+      </div>
+
+      <div class="footer">© 2025 OmniHub — All rights reserved</div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=> {
+      const toggle=document.getElementById('themeToggle'); const html=document.documentElement; const THEME_KEY='omnihub-theme';
+      const saved=localStorage.getItem(THEME_KEY)||'light'; html.setAttribute('data-theme',saved); if(toggle) toggle.checked=saved==='dark';
+      if(toggle) toggle.addEventListener('change', ()=>{ const theme = toggle.checked?'dark':'light'; html.setAttribute('data-theme',theme); localStorage.setItem(THEME_KEY,theme); });
+
+      (function init(sid,did,interval=3800){ const c=document.getElementById(sid); if(!c) return; const slides=c.querySelectorAll('.cat-slide'); const dots=document.getElementById(did); slides.forEach((_,i)=>{ const sp=document.createElement('span'); if(i===0)sp.classList.add('active'); dots.appendChild(sp); }); const dotList=dots.querySelectorAll('span'); let idx=0; function go(i){ slides.forEach((s,n)=>s.classList.toggle('active',n===i)); dotList.forEach((d,n)=>d.classList.toggle('active',n===i)); idx=i;} dotList.forEach((d,i)=>d.addEventListener('click',()=>go(i))); setInterval(()=>go((idx+1)%slides.length),interval); })('musicSlider','musicDots',4200);
+    });
+
+    const logoutBtn=document.getElementById('logoutBtn'), overlay=document.getElementById('logoutOverlay');
+    if(logoutBtn) logoutBtn.addEventListener('click', e=>{ e.preventDefault(); overlay.style.opacity='1'; overlay.style.pointerEvents='auto'; setTimeout(()=>window.location.href='login.html',1400); });
+  </script>
+</body>
+</html>
